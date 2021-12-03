@@ -97,8 +97,3 @@ func setBit(n int, pos uint) int {
 	n |= (1 << pos)
 	return n
 }
-
-func remove(s []string, i int) []string {
-	s[i] = s[len(s)-1]
-	return s[:len(s)-1]
-}
