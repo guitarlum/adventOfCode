@@ -33,7 +33,13 @@ func main() {
 		fmt.Fprintln(w, "1st Task: Multiply gamma and epsilon, power consumption: ", gamma*epislon)
 		var oxygen, co02 = calculateOxygenCO02(lines)
 		fmt.Fprintln(w, "1st Task: Multiply gamma and epsilon, oxygen * co02: ", oxygen*co02)
+	})
 
+	http.HandleFunc("/4", func(w http.ResponseWriter, r *http.Request) {
+		var numbers = readFileAsStringArray("input/input4a.txt")
+		var bingos = readFileAsStringArray("input/input4b.txt")
+		var score = calcBingoWinner(bingos, numbers)
+		fmt.Fprintln(w, "1st Task: score of winning bingo: ", score)
 	})
 
 	log.Fatal(http.ListenAndServe(":8081", nil))
