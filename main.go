@@ -55,5 +55,12 @@ func main() {
 
 	})
 
+	http.HandleFunc("/6", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input6.txt")
+
+		fmt.Fprintln(w, "1st Task: after 80 days: ", calcLanternFish(lines, 80))
+		fmt.Fprintln(w, "2nd Task: after 256 days: ", calcLanternFish(lines, 256))
+	})
+
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }

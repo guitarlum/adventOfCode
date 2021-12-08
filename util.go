@@ -43,3 +43,8 @@ func strToInt(s string) int {
 	intNumber, _ := strconv.Atoi(strings.TrimSpace(s))
 	return intNumber
 }
+
+func strToUint8(s string) uint8 {
+	intNumber, _ := strconv.Atoi(strings.TrimSpace(s))
+	return uint8(intNumber)
+}
