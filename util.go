@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func readFileAsNumbers(path string) []int {
@@ -36,4 +37,9 @@ func readFileAsStringArray(path string) []string {
 	}
 
 	return lines
+}
+
+func strToInt(s string) int {
+	intNumber, _ := strconv.Atoi(strings.TrimSpace(s))
+	return intNumber
 }

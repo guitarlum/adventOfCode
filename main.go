@@ -38,8 +38,21 @@ func main() {
 	http.HandleFunc("/4", func(w http.ResponseWriter, r *http.Request) {
 		var numbers = readFileAsStringArray("input/input4a.txt")
 		var bingos = readFileAsStringArray("input/input4b.txt")
-		var score = calcBingoWinner(bingos, numbers)
-		fmt.Fprintln(w, "1st Task: score of winning bingo: ", score)
+		var winnerScore = calcBingoWinner(bingos, numbers)
+		fmt.Fprintln(w, "1st Task: score of winning bingo: ", winnerScore)
+		var lastWinnerScore = calcBingoLoser(bingos, numbers)
+		fmt.Fprintln(w, "2nd Task: score of losing bingo: ", lastWinnerScore)
+
+	})
+
+	http.HandleFunc("/5", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input5.txt")
+		var without = calcOverlaps(lines, false)
+		var with = calcOverlaps(lines, true)
+
+		fmt.Fprintln(w, "1st Task: overlaps without diagonals: ", without)
+		fmt.Fprintln(w, "2nd Task: overlaps with diagonals: ", with)
+
 	})
 
 	log.Fatal(http.ListenAndServe(":8081", nil))

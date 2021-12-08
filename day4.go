@@ -19,6 +19,41 @@ func calcBingoWinner(bingos []string, numbersInput []string) int {
 	return calcScore(bingoBoard)
 }
 
+func calcBingoLoser(bingos []string, numbersInput []string) int {
+	var numbers = convertNumbersInput(numbersInput)
+	var bingoBoards = convertBingosToBoards(bingos)
+
+	var bingoBoard = determineLoserBoard(bingoBoards, numbers)
+
+	return calcScore(bingoBoard)
+}
+
+func determineLoserBoard(bbs []BingoBoard, numbers []int) BingoBoard {
+	var amount int = len(bbs)
+	for _, v := range numbers {
+		for i := range bbs {
+			if bbs[i].winningNumber == -1 {
+				for row := 0; row < 5; row++ {
+					for column := 0; column < 5; column++ {
+						if bbs[i].board[row][column] == v {
+							bbs[i].board[row][column] = -1
+							if isWinnerBoard(bbs[i]) {
+								bbs[i].winningNumber = v
+								amount--
+								if amount == 0 {
+									return bbs[i]
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	var noBoard BingoBoard
+	return noBoard
+}
+
 func determineWinningBoard(bbs []BingoBoard, numbers []int) BingoBoard {
 	for _, v := range numbers {
 		for i := range bbs {
@@ -28,7 +63,6 @@ func determineWinningBoard(bbs []BingoBoard, numbers []int) BingoBoard {
 						bbs[i].board[row][column] = -1
 						if isWinnerBoard(bbs[i]) {
 							bbs[i].winningNumber = v
-							return bbs[i]
 						}
 					}
 				}
@@ -103,10 +137,12 @@ func findUnmarkedNumbers(board BingoBoard) []int {
 func convertBingosToBoards(bingos []string) []BingoBoard {
 	var bingoBoards []BingoBoard
 	var currentBoard *BingoBoard = new(BingoBoard)
+	currentBoard.winningNumber = -1
 	for row, v := range bingos {
 		if len(v) == 0 {
 			bingoBoards = append(bingoBoards, *currentBoard)
 			currentBoard = new(BingoBoard)
+			currentBoard.winningNumber = -1
 		}
 		split := strings.Fields(v)
 		for column, number := range split {
