@@ -62,5 +62,12 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: after 256 days: ", calcLanternFish(lines, 256))
 	})
 
+	http.HandleFunc("/7", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input7.txt")
+
+		fmt.Fprintln(w, "1st Task: crabs fuel for normal consumption: ", calcCrabFuel(lines, false))
+		fmt.Fprintln(w, "2nd Task: crabs fuel for gauss consumption: ", calcCrabFuel(lines, true))
+	})
+
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }
