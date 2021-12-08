@@ -63,6 +63,7 @@ func determineWinningBoard(bbs []BingoBoard, numbers []int) BingoBoard {
 						bbs[i].board[row][column] = -1
 						if isWinnerBoard(bbs[i]) {
 							bbs[i].winningNumber = v
+							return bbs[i]
 						}
 					}
 				}
