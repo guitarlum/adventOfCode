@@ -61,7 +61,7 @@ func calcSumOfOutput(lines []string) int {
 	digitMap[127] = 8
 	digitMap[111] = 9
 	var sumOfAll int = 0
-	for i, p := range pairs {
+	for _, p := range pairs {
 		var lineCodeMap map[byte]byte = make(map[byte]byte)
 
 		var zeroBit byte = extractZeroBit(p)
@@ -89,7 +89,6 @@ func calcSumOfOutput(lines []string) int {
 			}
 			outputNumber += strconv.Itoa(digitMap[output])
 		}
-		println(i+1, outputNumber)
 		sumOfAll += strToInt(outputNumber)
 	}
 
@@ -97,13 +96,7 @@ func calcSumOfOutput(lines []string) int {
 }
 
 func extractSixthBit(p Pair, lineCodeMap map[byte]byte) byte {
-	var eight string
-	for _, v := range p.input {
-		if len(v) == 7 {
-			eight = v
-			break
-		}
-	}
+	eight := findEight(p)
 	var known string
 	for _, v := range lineCodeMap {
 		known += string(v)
@@ -117,7 +110,7 @@ func extractSixthBit(p Pair, lineCodeMap map[byte]byte) byte {
 	return sixthBit
 }
 
-func extractThirdBit(p Pair, lineCodeMap map[byte]byte) byte {
+func findEight(p Pair) string {
 	var eight string
 	for _, v := range p.input {
 		if len(v) == 7 {
@@ -125,12 +118,14 @@ func extractThirdBit(p Pair, lineCodeMap map[byte]byte) byte {
 			break
 		}
 	}
-	var zero string = ""
+	return eight
+}
+
+func extractThirdBit(p Pair, lineCodeMap map[byte]byte) byte {
+	eight := findEight(p)
+	var zero string
 	for _, v := range p.input {
 		if len(v) == 6 && strings.Contains(v, string(lineCodeMap[2])) && strings.Contains(v, string(lineCodeMap[4])) {
-			if zero != "" {
-				println("fuuuuck")
-			}
 			zero = v
 		}
 	}
@@ -147,20 +142,11 @@ func extractThirdBit(p Pair, lineCodeMap map[byte]byte) byte {
 }
 
 func extract4th1stBit(p Pair, lineCodeMap map[byte]byte) (byte, byte) {
-	var eight string
-	for _, v := range p.input {
-		if len(v) == 7 {
-			eight = v
-			break
-		}
-	}
+	eight := findEight(p)
 
-	var five string = ""
+	var five string
 	for _, v := range p.input {
 		if len(v) == 5 && !strings.Contains(v, string(lineCodeMap[2])) {
-			if five != "" {
-				println("fuck me 5")
-			}
 			five = v
 		}
 	}
@@ -174,12 +160,9 @@ func extract4th1stBit(p Pair, lineCodeMap map[byte]byte) (byte, byte) {
 		}
 	}
 
-	var two string = ""
+	var two string
 	for _, v := range p.input {
 		if len(v) == 5 && !strings.Contains(v, string(lineCodeMap[5])) {
-			if two != "" {
-				println("fuck me 2")
-			}
 			two = v
 		}
 	}
@@ -197,7 +180,7 @@ func extract4th1stBit(p Pair, lineCodeMap map[byte]byte) (byte, byte) {
 
 func extract2nd5thBit(p Pair) (byte, byte) {
 	var one string
-	var six string = ""
+	var six string
 
 	for _, v := range p.input {
 		if len(v) == 2 {
@@ -209,9 +192,6 @@ func extract2nd5thBit(p Pair) (byte, byte) {
 	for _, v := range p.input {
 		if len(v) == 6 &&
 			((strings.Contains(v, string(one[0])) || strings.Contains(v, string(one[1]))) && !(strings.Contains(v, string(one[0])) && strings.Contains(v, string(one[1])))) {
-			if six != "" {
-				println("what have i become")
-			}
 			six = v
 		}
 	}
