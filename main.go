@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -69,5 +68,9 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: crabs fuel for gauss consumption: ", calcCrabFuel(lines, true))
 	})
 
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	var lines = readFileAsStringArray("input/input8.txt")
+	println(calcDigit1478(lines))
+	println(calcSumOfOutput(lines))
+
+	// log.Fatal(http.ListenAndServe(":8081", nil))
 }

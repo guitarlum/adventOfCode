@@ -92,8 +92,3 @@ func binaryToInt(oxyCopy []string) int {
 	}
 	return int(oxygen)
 }
-
-func setBit(n int, pos uint) int {
-	n |= (1 << pos)
-	return n
-}

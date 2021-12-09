@@ -48,3 +48,13 @@ func strToUint8(s string) uint8 {
 	intNumber, _ := strconv.Atoi(strings.TrimSpace(s))
 	return uint8(intNumber)
 }
+
+func setBit(n int, pos uint) int {
+	n |= (1 << pos)
+	return n
+}
+
+func setBitInByte(n byte, pos uint) byte {
+	n |= (1 << pos)
+	return n
+}
