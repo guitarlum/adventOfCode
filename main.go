@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -74,7 +75,11 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: Sum of all outputs: crabs fuel for gauss consumption: ", calcSumOfOutput(lines))
 	})
 
-	var lines = readFileAsStringArray("input/input9.txt")
-	println(calcLowPointRisk(lines))
-	// log.Fatal(http.ListenAndServe(":8081", nil))
+	http.HandleFunc("/9", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input9.txt")
+		fmt.Fprintln(w, "1st Task: Calc Low point Risk: ", calcLowPointRisk(lines))
+		fmt.Fprintln(w, "2nd Task: Multiply 3 largest basins: ", calcBasinSize(lines))
+	})
+
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
