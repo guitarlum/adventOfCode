@@ -81,5 +81,12 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: Multiply 3 largest basins: ", calcBasinSize(lines))
 	})
 
+	http.HandleFunc("/10", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input10.txt")
+		error, complete := calcErrorAndCompletionScore(lines)
+		fmt.Fprintln(w, "1st Task: Calc Error Score: ", error)
+		fmt.Fprintln(w, "2nd Task: Calc Completion Score: ", complete)
+	})
+
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }

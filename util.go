@@ -58,3 +58,18 @@ func setBitInByte(n byte, pos uint) byte {
 	n |= (1 << pos)
 	return n
 }
+
+func ReverseString(s string) string {
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
+}
+
+func RemoveLastElement(array []byte) []byte {
+	if len(array) > 0 {
+		array = array[:len(array)-1]
+	}
+	return array
+}
