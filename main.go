@@ -88,5 +88,13 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: Calc Completion Score: ", complete)
 	})
 
+	http.HandleFunc("/11", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input11.txt")
+		flashes, steps := calcFlashes(lines)
+		fmt.Fprintln(w, "1st Task: Calc Flashes: ", flashes)
+		fmt.Fprintln(w, "2nd Task: Calc Sync Steps: ", steps)
+	})
+
 	log.Fatal(http.ListenAndServe(":8081", nil))
+
 }
