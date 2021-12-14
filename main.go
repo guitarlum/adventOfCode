@@ -95,6 +95,13 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: Calc Sync Steps: ", steps)
 	})
 
+	http.HandleFunc("/12", func(w http.ResponseWriter, r *http.Request) {
+		var lines = readFileAsStringArray("input/input12.txt")
+		paths, pathsTwice := calcPaths(lines)
+		fmt.Fprintln(w, "1st Task: Paths visit once: ", paths)
+		fmt.Fprintln(w, "2nd Task: Paths visit twices: ", pathsTwice)
+	})
+
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
 }
