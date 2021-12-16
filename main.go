@@ -102,6 +102,27 @@ func main() {
 		fmt.Fprintln(w, "2nd Task: Paths visit twices: ", pathsTwice)
 	})
 
+	http.HandleFunc("/13", func(w http.ResponseWriter, r *http.Request) {
+
+		var points = readFileAsStringArray("input/input13a.txt")
+		var instructions = readFileAsStringArray("input/input13b.txt")
+
+		pointsAfterFirst, image := calcPoints(points, instructions)
+
+		fmt.Fprintln(w, "1st Task: Points after first fold: ", pointsAfterFirst)
+		fmt.Fprintln(w, "2nd Task: Code: ")
+		for y := 0; y <= 6; y++ {
+			for x := 0; x <= 40; x++ {
+				if image[Point{x, y}] {
+					fmt.Fprint(w, "#")
+				} else {
+					fmt.Fprint(w, ".")
+				}
+			}
+			fmt.Fprintln(w)
+		}
+	})
+
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
 }
